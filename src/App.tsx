@@ -11,6 +11,17 @@ function App() {
     setRows([...rows, { key: '', value: '' }])
   }
 
+  const handleFetch = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/tes-mandiri/6914a9e912d234908fc83345')
+      const data = await response.json()
+      const newRows = Object.entries(data).map(([key, value]) => ({ key, value: String(value) }))
+      setRows(newRows)
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const data: Record<string, string> = {}
@@ -42,13 +53,22 @@ function App() {
       <h1>Tes Mongo DB</h1>
       <div className="flex flex-row">
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <button
-            type="button"
-            onClick={handleAddRow}
-            className="bg-green-500 text-white px-4 py-2"
-          >
-            Add Row
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleFetch}
+              className="bg-purple-500 text-white px-4 py-2"
+            >
+              Fetch Data
+            </button>
+            <button
+              type="button"
+              onClick={handleAddRow}
+              className="bg-green-500 text-white px-4 py-2"
+            >
+              Add Row
+            </button>
+          </div>
           <table id="input-data" className="w-full justify-between">
             <thead>
               <tr>
