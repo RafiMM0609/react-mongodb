@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
   const [rows, setRows] = useState([{ key: '', value: '' }])
+  const [dataId, setDataId] = useState('6914a9e912d234908fc83345')
 
   const handleAddRow = () => {
     setRows([...rows, { key: '', value: '' }])
@@ -54,6 +52,12 @@ function App() {
       <div className="flex flex-row">
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex gap-2">
+            <input
+             type='text'
+             value={dataId}
+             onChange={(e) => setDataId(e.target.value)}
+             >
+            </input>
             <button
               type="button"
               onClick={handleFetch}
